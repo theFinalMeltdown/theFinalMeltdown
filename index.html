@@ -10,306 +10,329 @@
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v2.1.1/dist/aframe-physics-system.min.js"></script>
     <script src="https://github.com/ngokevin/aframe-physics-components/blob/master/dist/aframe-physics-components.min.js"></script>
     
+  <!-- Curved Text Script -->
+  <script src="https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js"></script>
+      
   </head>
   <body>
   
+    <div 
+        id="texture" 
+        style="width: 100%; height: 100%; position: fixed; left: 0; top: 0; z-index: -1; overflow: hidden">
+        <p style="position: relative; font-size: 90px">Welcome to the Final Meltdown! </p>
+    </div>
     
     <a-scene 
-             fog="type: exponential; color: #AAA; density: 0.00024;"
-             class="fullscreen" 
-             >
+        fog="type: exponential; color: #AAA; density: 0.00024;"
+        class="fullscreen">
+     
       <!-- Camera -->
       <a-entity 
-                camera="userHeight: 1.6" 
-                universal-controls="movementEnabled: false" 
-                >
-        <a-cursor color="yellow"></a-cursor>
+          camera="userHeight: 1.6" 
+          universal-controls="movementEnabled: false">
+          <a-cursor color="yellow"></a-cursor>
       </a-entity>
 
       <!-- Ocean -->
       <a-ocean 
-               width="50" 
-               depth="50" 
-               density="40" 
-                ></a-ocean>
-     
+          width="50" 
+          depth="50" 
+          density="40">
+      </a-ocean>
+      
+      <!-- Welcome Text -->
+      <a-entity 
+          geometry="primitive: cylinder; radius: 3; segmentsRadial: 100; thetaLength: -140; openEnded: true"       
+          material="shader: html; target: #texture; side: double; width: 1800; height: 200; transparent: true" 
+          update-repeat position="0 0.5 -4" 
+          rotation="0 -140 0">
+      </a-entity>
+      
       <!-- Main Iceburg -->
       <a-cylinder 
-                  radius="3.3" 
-                  height="1" 
-                  color="white" 
-                  position="0 -.5 0" 
-                  ></a-cylinder>
+          radius="3.3" 
+          height="1" 
+          color="white" 
+          position="0 -.5 0">
+      </a-cylinder>
       
       <!-- Iceburgs --> 
+      <a-curvedimage
+          class="flatberg"
+          position="15 -5 -10" 
+          rotation="0 45 0" 
+          width="32" 
+          height="35"
+          radius="10"
+          theta-length="200"
+          src="https://cdn.glitch.com/1710a9ab-03f3-45a0-9011-9521dfb9ee8d%2FBIGBURG.png?1517198558818"
+          transparent="true"
+          shadow>
+          <!-- bob animation -->
+          <a-animation 
+              attribute="position" 
+              direction="alternate" 
+              dur="2000" 
+              repeat="indefinite" 
+              to="15 -4 -10">
+          </a-animation>
+          <!-- shrink animation -->
+          <a-animation
+              attribute="scale"
+              begin="9000"
+              dur="60000"
+              from="1 1 1"
+              to="0.1 0.1 0.1">
+          </a-animation>
+      </a-curvedimage>
 
-      <a-plane
-                 class="flatberg"
-                 position="15.5 -3.5 -10.5" 
-                 rotation="0 -45 0" 
-                 width="32" 
-                 height="32"
-                 radius="5"
-                 theta-length="90"
-                 src="https://cdn.glitch.com/1710a9ab-03f3-45a0-9011-9521dfb9ee8d%2FBIGBURG.png?1517198558818"
-                 transparent="true"
-                 shadow>
-        <a-animation 
-                     attribute="position" 
-                     direction="alternate" 
-                     dur="2000" 
-                     repeat="indefinite" 
-                     to="15.5 -2.5 -10.5"
-                     ></a-animation>
-<!--    shrink animation      -->
-        <a-animation
-                       attribute="scale"
-                       begin="9000"
-                       dur="60000"
-                       from="1 1 1"
-                       to="0.1 0.1 0.1"
-                       ></a-animation>
-      </a-plane>
       <!-- Polar Bear -->
-      <a-box   dynamic-body
-                 id="polarBear"
-                 position="14 .6 -10" 
-                 rotation="0 -55 0" 
-                 width="1.45" 
-                 height="1.45" 
-                 src="https://cdn.glitch.com/1710a9ab-03f3-45a0-9011-9521dfb9ee8d%2FPolarBear.png?1517112065005"
-                 transparent="true"
-                 mass="999"     
-               >
+      <a-box 
+          dynamic-body
+          id="polarBear"
+          position="14 2 -10" 
+          rotation="0 -55 0" 
+          width="2.5" 
+          height="2.5"
+          depth="2.5"
+          src="https://cdn.glitch.com/1710a9ab-03f3-45a0-9011-9521dfb9ee8d%2FPolarBear.png?1517112065005"
+          transparent="true"
+          mass="999">
       </a-box>
    
-           <!--   polar flatberg     -->
+        <!-- polar flatberg -->
         <a-cylinder 
-                    id="polarFlatburg"
-                    static-body
-                    class="flatberg"
-                    radius="5"
-                    height="1"
-                    color="#ABE3FF"
-                    position="14 -.7 -10" 
-                    opacity="0.5"
-                    visibilty="false"
-                    >
-          <a-animation 
-                       attribute="position" 
-                       direction="alternate" 
-                       dur="2000" 
-                       repeat="indefinite" 
-                       to="14 0 -10"
-                       ></a-animation>
-          <a-animation
-                       id="polarFlatburgShrinking"
-                       attribute="scale"
-                       begin="5000"
-                       dur="45000"
-                       from="1 1 1"
-                       to="0.1 0.1 0.1"
-                       ></a-animation>
+            id="polarFlatburg"
+            static-body
+            class="flatberg"
+            radius="5"
+            height="1"
+            color="#ABE3FF"
+            position="14 -1 -10" 
+            opacity="0.1"
+            visibilty="false">
+            <a-animation 
+                attribute="position" 
+                direction="alternate" 
+                dur="2000" 
+                repeat="indefinite" 
+                to="14 1 -10">
+            </a-animation>
+            <a-animation
+                id="polarFlatburgShrinking"
+                attribute="scale"
+                begin="3000"
+                dur="45000"
+                from="1 1 1"
+                to="0.1 0.1 0.1">
+            </a-animation>
         </a-cylinder>
       
-      
-      <!-- flatberg 1 -->
-         <a-plane
-                   class="flatberg"  
-                   position="10 -2 45" 
-                   rotation="0 -150 0" 
-                   width="24"
-                   height="24"
-                   src="https://cdn.glitch.com/1710a9ab-03f3-45a0-9011-9521dfb9ee8d%2FSMALLBURG.png?1517198403036"
-                   transparent="true"
-                   shadow >
-          <a-animation 
-                       attribute="position" 
-                       direction="alternate" 
-                       dur="2100" 
-                       repeat="indefinite" 
-                       to="10 -1 45"
-                       ></a-animation>
-          <!--    shrink animation      -->
-          <a-animation
-                       attribute="scale"
-                       begin="9000"
-                       dur="60000"
-                       from="1 1 1"
-                       to="0.1 0.1 0.1"
-                       ></a-animation>
-          
-        </a-plane>
-        <a-cylinder 
-                    class="flatberg"
-                    mass="2" 
-                    toggle-velocity="axis: y; min: -.125; max: .125;"
-                    velocity="0 0 -100" 
-                    radius="7.5" 
-                    height="1" 
-                    color="#ABE3FF" 
-                    position="25 -.5 6" 
-                    opacity="0.5">
-          <a-animation 
-                     attribute="position" 
-                     direction="alternate" 
-                     dur="2100" 
-                     repeat="indefinite" 
-                     to="25 .5 6"
-                     ></a-animation>
-          <!--    shrink animation      -->
-          <a-animation
-                       attribute="scale"
-                       begin="9000"
-                       dur="60000"
-                       from="1 1 1"
-                       to="0.1 0.1 0.1"
-                       ></a-animation>
-        </a-cylinder> 
-      <!-- flatberg 2 -->
+        <!-- flatberg 1st clockwise -->
         <a-plane
-                   class="flatberg"  
-                   position="21 -9 25" 
-                   rotation="0 -120 0" 
-                   width="54"
-                   height="54"
-                   radius="7.5"
-                   theta-length="90"
-                   src="https://cdn.glitch.com/1710a9ab-03f3-45a0-9011-9521dfb9ee8d%2Fotherburg.png?1517201198328"
-                   transparent="true"
-                   shadow>
-          <a-animation 
-                       attribute="position" 
-                       direction="alternate" 
-                       dur="1950" 
-                       repeat="indefinite" 
-                       to="21 -8 25"
-                       ></a-animation>
-         <!--    shrink animation      -->
-          <a-animation
-                       attribute="scale"
-                       begin="9000"
-                       dur="60000"
-                       from="1 1 1"
-                       to="0.1 0.1 0.1"
-                       ></a-animation>
+            class="flatberg"  
+            position="21 -9 25" 
+            rotation="0 -120 0" 
+            width="55"
+            height="65"
+            radius="7.5"
+            theta-length="90"
+            src="https://cdn.glitch.com/1710a9ab-03f3-45a0-9011-9521dfb9ee8d%2Fotherburg.png?1517201198328"
+            transparent="true"
+            shadow>
+            <!-- bob animation -->
+            <a-animation 
+                attribute="position" 
+                direction="alternate" 
+                dur="1950" 
+                repeat="indefinite" 
+                to="21 -8 25">
+            </a-animation>
+            <!-- shrink animation -->
+            <a-animation
+                attribute="scale"
+                begin="9000"
+                dur="60000"
+                from="1 1 1"
+                to="0.1 0.1 0.1">
+            </a-animation>
         </a-plane>
-      <!-- flatberg 3 ok -->
+        
+        <!-- flatberg 2nd clockwise -->
         <a-plane
-                   class="flatberg"  
-                   position="-10 -4.5 -45" 
-                   rotation="0 45 0" 
-                   width="30"
-                   height="30"
-                   radius="5"
-                   theta-length="90"
-                   src="https://cdn.glitch.com/1710a9ab-03f3-45a0-9011-9521dfb9ee8d%2FSMALLBURG.png?1517198403036"
-                   transparent="true"
-                   shadow>
-          <a-animation 
-                       attribute="position" 
-                       direction="alternate" 
-                       dur="2650" 
-                       repeat="indefinite" 
-                       to="-10 -4 -45"
-                       ></a-animation>
-                  <!--    shrink animation      -->
-          <a-animation
-                       attribute="scale"
-                       begin="9000"
-                       dur="60000"
-                       from="1 1 1"
-                       to="0.1 0.1 0.1"
-                       ></a-animation>
+            class="flatberg"  
+            position="10 -2 25" 
+            rotation="0 -150 0" 
+            width="24"
+            height="24"
+            src="https://cdn.glitch.com/1710a9ab-03f3-45a0-9011-9521dfb9ee8d%2FSMALLBURG.png?1517198403036"
+            transparent="true"
+            shadow >
+            <!-- bob animation -->
+            <a-animation 
+                attribute="position" 
+                direction="alternate" 
+                dur="2100" 
+                repeat="indefinite" 
+                to="10 -1 25">
+            </a-animation>
+            <!-- shrink animation -->
+            <a-animation
+                attribute="scale"
+                begin="9000"
+                dur="60000"
+                from="1 1 1"
+                to="0.05 0.05 0.05" >
+            </a-animation>       
         </a-plane>
-        <a-cylinder 
-                    class="flatberg"
-                    mass="2" 
-                    toggle-velocity="axis: y; min: -.125; max: .125;"
-                    velocity="0 0 -100"
-                    radius="6" 
-                    height="1" 
-                    color="#ABE3FF"
-                    position="-10 -.5 -25" 
-                    opacity="0.5">
-          <a-animation 
-                     attribute="position" 
-                     direction="alternate" 
-                     dur="2650" 
-                     repeat="indefinite" 
-                     to="-10 .5 -25"
-                     ></a-animation>
-                  <!--    shrink animation      -->
-          <a-animation
-                       attribute="scale"
-                       begin="9000"
-                       dur="60000"
-                       from="1 1 1"
-                       to="0.1 0.1 0.1"
-                       ></a-animation>
-                  <!--    shrink animation      -->
-          <a-animation
-                       attribute="scale"
-                       begin="9000"
-                       dur="60000"
-                       from="1 1 1"
-                       to="0.1 0.1 0.1"
-                       ></a-animation>
-        </a-cylinder>
-      <!-- flatberg 4 -->
+
+        <!-- flatberg 3rd clockwise -->
         <a-plane
-                   class="flatberg"  
-                   position="-18 -8 24" 
-                   rotation="0 125 0" 
-                   width="43"
-                   height="60"
-                   radius="12"
-                   theta-length="90"
-                   src="https://cdn.glitch.com/1710a9ab-03f3-45a0-9011-9521dfb9ee8d%2Fotherburg.png?1517201198328"
-                   transparent="true"
-                   shadow>
-          <a-animation 
-                       attribute="position" 
-                       direction="alternate" 
-                       dur="1750" 
-                       repeat="indefinite" 
-                       to="-18 -7 24"
-                       ></a-animation>
-                  <!--    shrink animation      -->
-          <a-animation
-                       attribute="scale"
-                       begin="9000"
-                       dur="60000"
-                       from="1 1 1"
-                       to="0.1 0.1 0.1"
-                       ></a-animation>
+            class="flatberg"  
+            position="-20 -7 40" 
+            rotation="0 -200 180" 
+            width="60"
+            height="85"
+            src="https://cdn.glitch.com/1710a9ab-03f3-45a0-9011-9521dfb9ee8d%2FSMALLBURG.png?1517198403036"
+            transparent="true"
+            shadow >
+            <!-- bob animation -->
+            <a-animation 
+                attribute="position" 
+                direction="alternate" 
+                dur="2100" 
+                repeat="indefinite" 
+                to="-20 -4 40">
+            </a-animation>
+            <!-- shrink animation -->
+            <a-animation
+                attribute="scale"
+                begin="9000"
+                dur="60000"
+                from="1 1 1"
+                to="0.1 0.1 0.1">
+            </a-animation>        
         </a-plane>
-        <a-cylinder 
-                    class="flatberg"
-                    mass="2" 
-                    toggle-velocity="axis: y; min: -.125; max: .125;" 
-                    velocity="0 0 -100"                
-                    radius="12" 
-                    height="1" 
-                    color="#ABE3FF" 
-                    position="-22 -.5 14"
-                    opacity="0.5">
-          <a-animation 
-                     attribute="position" 
-                     direction="alternate" 
-                     dur="1750" 
-                     repeat="indefinite" 
-                     to="-22 .5 14"
-                     ></a-animation>
-                  <!--    shrink animation      -->
-          <a-animation
-                       attribute="scale"
-                       begin="9000"
-                       dur="60000"
-                       from="1 1 1"
-                       to="0.1 0.1 0.1"
-                       ></a-animation>
-        </a-cylinder>
+
+        <!-- flatberg 4th clockwise -->
+        <a-plane
+            class="flatberg"  
+            position="-20 -8 20" 
+            rotation="0 105 0" 
+            width="35"
+            height="50"
+            radius="12"
+            theta-length="90"
+            src="https://cdn.glitch.com/1710a9ab-03f3-45a0-9011-9521dfb9ee8d%2Fotherburg.png?1517201198328"
+            transparent="true"
+            shadow>
+            <!-- bob animation -->
+            <a-animation 
+                attribute="position" 
+                direction="alternate" 
+                dur="1750" 
+                repeat="indefinite" 
+                to="-20 -7 20">
+            </a-animation>
+            <!-- shrink animation -->
+            <a-animation
+                attribute="scale"
+                begin="9000"
+                dur="60000"
+                from="1 1 1"
+                to="0.1 0.1 0.1">
+            </a-animation>
+        </a-plane>
+
+        <!-- flatberg 5th clockwise -->
+        <a-plane
+            class="flatberg"
+            position="-45 -5 -5" 
+            rotation="0 90 180" 
+            width="60" 
+            height="90"
+            radius="5"
+            theta-length="90"
+            src="https://cdn.glitch.com/1710a9ab-03f3-45a0-9011-9521dfb9ee8d%2FBIGBURG.png?1517198558818"
+            transparent="true"
+            shadow>
+            <!-- bob animation -->
+            <a-animation 
+                attribute="position" 
+                direction="alternate" 
+                dur="2000" 
+                repeat="indefinite" 
+                to="-45 -3 -5">
+            </a-animation>
+            <!-- shrink animation -->
+            <a-animation
+                attribute="scale"
+                begin="9000"
+                dur="60000"
+                from="1 1 1"
+                to="0.1 0.1 0.1">
+            </a-animation>
+        </a-plane>
+
+        <!-- flatberg 6th clockwise -->
+        <a-plane
+            class="flatberg"
+            position="-30 -4 -15" 
+            rotation="0 80 0" 
+            width="25" 
+            height="45"
+            radius="5"
+            theta-length="90"
+            src="https://cdn.glitch.com/1710a9ab-03f3-45a0-9011-9521dfb9ee8d%2FBIGBURG.png?1517198558818"
+            transparent="true"
+            shadow>
+            <!-- bob animation -->
+            <a-animation 
+                attribute="position" 
+                direction="alternate" 
+                dur="2000" 
+                repeat="indefinite" 
+                to="-30 -3 -15">
+            </a-animation>
+            <!-- shrink animation -->
+            <a-animation
+                attribute="scale"
+                begin="9000"
+                dur="60000"
+                from="1 1 1"
+                to="0.1 0.1 0.1">
+            </a-animation>
+        </a-plane>
+
+        <!-- flatberg 7th clockwise -->
+        <a-plane
+            class="flatberg"  
+            position="-30 -4 -60" 
+            rotation="0 45 0" 
+            width="90"
+            height="110"
+            radius="5"
+            theta-length="90"
+            src="https://cdn.glitch.com/1710a9ab-03f3-45a0-9011-9521dfb9ee8d%2FSMALLBURG.png?1517198403036"
+            transparent="true"
+            shadow>
+            <!-- bob animation -->
+            <a-animation 
+                attribute="position" 
+                direction="alternate" 
+                dur="2650" 
+                repeat="indefinite" 
+                to="-30 -2 -60">
+            </a-animation>
+            <!-- shrink animation -->
+            <a-animation
+                attribute="scale"
+                begin="9000"
+                dur="60000"
+                from="1 1 1"
+                to="0.1 0.1 0.1">
+            </a-animation>
+        </a-plane>
       
       <!-- Sky -->
       <a-sky material="fog: false" src="https://cdn.glitch.com/1710a9ab-03f3-45a0-9011-9521dfb9ee8d%2Fstormy.jpg?1517111644058"></a-sky>
@@ -318,25 +341,24 @@
       <a-entity light="type: hemisphere; color: lightyellow; ground-color: black; intensity: 0.9;"></a-entity>
       <a-entity light="type: ambient; color: white; intensity: 0.5;"></a-entity>
       <canvas 
-            class="a-canvas" 
-            data-aframe-canvas="true" 
-            width="2302" 
-            height="1624" 
-            style="width: 1151px; height: 812px;"
-            ></canvas>
+          class="a-canvas" 
+          data-aframe-canvas="true" 
+          width="2302" 
+          height="1624" 
+          style="width: 1151px; height: 812px;">
+      </canvas>
       <div class="a-enter-vr">
         <button class="a-enter-vr-button"></button>
       </div>
       <div class="a-orientation-modal a-hidden">
-        <button aframe-injected="">Exit VR
-        </button>
+        <button aframe-injected="">Exit VR</button>
       </div>
     </a-scene>
       
-      <script>
+    <script>
         polarFlatburgShrinking.addEventListener('animationend', () => {
           polarFlatburg.removeAttribute('static-body');
         });
-      </script>
-    </body>
+    </script>
+  </body>
 </html>
