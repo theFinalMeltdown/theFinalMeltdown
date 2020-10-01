@@ -3,43 +3,33 @@
   <head>
     <title>The Final Meltdown</title>
     <meta name="description" content="The Final Meltdown">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="theme-color" content="#3e69c3">
 <!-- AFrame Stable Version -->
     <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
-
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script> 
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v2.1.1/dist/aframe-physics-system.min.js"></script>
     <script src="https://github.com/ngokevin/aframe-physics-components/blob/master/dist/aframe-physics-components.min.js"></script>
-    
   <!-- Curved Text Script -->
-  <script src="https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js"></script>
-      
+  <script src="https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js"></script> 
   </head>
   <body>
-  
     <div 
         id="texture" 
         style="width: 100%; height: 100%; position: fixed; left: 0; top: 0; z-index: -1; overflow: hidden">
         <p style="position: relative; font-size: 90px">Welcome to the Final Meltdown! </p>
     </div>
-    
-    <a-scene 
-        fog="type: exponential; color: #AAA; density: 0.00024;"
-        class="fullscreen">
-     
+    <a-scene  fog="type: exponential; color: #AAA; density: 0.00024;" class="fullscreen">
       <!-- Camera -->
-      <a-entity 
-          camera="userHeight: 1.6" 
-          universal-controls="movementEnabled: false">
-          <a-cursor color="yellow"></a-cursor>
-      </a-entity>
-
+      <a-entity camera="userHeight: 1.6" universal-controls="movementEnabled: false"> <a-cursor color="yellow"></a-cursor></a-entity>
       <!-- Ocean -->
       <a-ocean 
           width="50" 
           depth="50" 
           density="40">
       </a-ocean>
-      
       <!-- Welcome Text -->
       <a-entity 
           geometry="primitive: cylinder; radius: 3; segmentsRadial: 100; thetaLength: -140; openEnded: true"       
@@ -336,7 +326,6 @@
       
       <!-- Sky -->
       <a-sky material="fog: false" src="https://cdn.glitch.com/1710a9ab-03f3-45a0-9011-9521dfb9ee8d%2Fstormy.jpg?1517111644058"></a-sky>
-      
       <!-- Lighting -->
       <a-entity light="type: hemisphere; color: lightyellow; ground-color: black; intensity: 0.9;"></a-entity>
       <a-entity light="type: ambient; color: white; intensity: 0.5;"></a-entity>
@@ -359,6 +348,7 @@
         polarFlatburgShrinking.addEventListener('animationend', () => {
           polarFlatburg.removeAttribute('static-body');
         });
+        window.alert("Press Esc To get your cursor Back!")
     </script>
   </body>
 </html>
